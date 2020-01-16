@@ -36,5 +36,32 @@ router.post(
     }
 );
 
+router.put(
+    '/category/:categoryId',
+    auth.verifyAdmin,
+    (req, res, next) =>{
+        Category.findOne({_id: req.params.categoryId}, (error, response)=>{
+            if(error){
+                res.status(404).json(utils.createResponse(400, error._message, error.error));
+            }else{
+                response.category = req.body.category;
+                response.save()
+                .then(_ => {
+                    res.status(200).json(utils.createResponse(200, "Category successfully updated", response));
+                })
+                .catch(error =>{
+                    console.log(error);
+                    if (error.name === 'ValidationError'){
+                        res.status(400).json(utils.createResponse(400, error._message, error.error));
+                   }else{
+                        res.status(500).json(utils.createResponse(500, "Internal server error", error));
+                   }
+                });
+
+            }
+        });
+    }
+);
+
 
 module.exports = router;
