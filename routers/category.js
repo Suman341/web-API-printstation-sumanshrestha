@@ -63,5 +63,43 @@ router.put(
     }
 );
 
+router.delete(
+    '/category/:categoryId',
+    auth.verifyAdmin,
+    (req, res, next) => {
+        Category.deleteOne({_id: req.params.categoryId}, (error)=>{
+            if(error) res.status(400).json(utils.createResponse(500, error.message));
+            else res.status(200).json(utils.createResponse(200, "Category successfully deleted"));
+        });
+    }
+);
+
+router.get(
+    '/category/:categoryId',
+    auth.verifyUser,
+    (req, res, next) => {
+        Category.findOne({_id: req.params.categoryId}, (error, response)=>{
+            if(error){
+                res.status(500).json(utils.createResponse(500, error.message, error));
+            }else{
+                res.json(utils.createResponse(200, "Category successfully fetched", response));
+            }
+        });
+    }
+);
+
+router.get(
+    '/categories',
+    auth.verifyUser,
+    (req, res, next) => {
+        Category.find((error, response)=>{
+            if(error){
+                res.status(500).json(utils.createResponse(500, error.message, error));
+            }else{
+                res.json(utils.createResponse(200, "Category successfully fetched", response));
+            }
+        });
+    }
+);
 
 module.exports = router;
