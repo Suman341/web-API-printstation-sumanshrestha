@@ -88,6 +88,7 @@ router.get(
     }
 );
 
+
 router.get(
     '/categories',
     auth.verifyUser,
