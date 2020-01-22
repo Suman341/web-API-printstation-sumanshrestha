@@ -43,7 +43,7 @@ router.put(
         Category.findOne({_id: req.params.categoryId}, (error, response)=>{
             if(error){
                 res.status(404).json(utils.createResponse(400, error._message, error.error));
-            }else{
+            }else{     
                 response.category = req.body.category;
                 response.save()
                 .then(_ => {
@@ -75,8 +75,8 @@ router.delete(
 );
 
 router.get(
-    '/category/:categoryId',
-    auth.verifyUser,
+    '/category/:categoryId', 
+    auth.verifyUser, 
     (req, res, next) => {
         Category.findOne({_id: req.params.categoryId}, (error, response)=>{
             if(error){
@@ -89,8 +89,8 @@ router.get(
 );
 
 router.get(
-    '/categories',
-    auth.verifyUser,
+    '/categories', 
+    auth.verifyUser, 
     (req, res, next) => {
         Category.find((error, response)=>{
             if(error){
