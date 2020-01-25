@@ -74,19 +74,6 @@ router.delete(
     }
 );
 
-router.get(
-    '/category/:categoryId', 
-    auth.verifyUser, 
-    (req, res, next) => {
-        Category.findOne({_id: req.params.categoryId}, (error, response)=>{
-            if(error){
-                res.status(500).json(utils.createResponse(500, error.message, error));
-            }else{
-                res.json(utils.createResponse(200, "Category successfully fetched", response));
-            }
-        });
-    }
-);
 
 router.get(
     '/categories', 
