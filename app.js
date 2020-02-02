@@ -6,13 +6,21 @@ const cors = require('cors');
 
 require('./db/mongoose');
 const userRouter = require('./routers/user');
+const categoryRouter = require('./routers/category');
+const productRouter = require('./routers/product');
 
+// utils
+const utils = require('./utils/response-util');
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use('/resources',express.static(__dirname + '/public'));
 
+app.use('*', cors())
+
 app.use(userRouter);
+app.use(categoryRouter);
+app.use(productRouter);
 
 // error handler
 app.use(function(err, req, res, next) {

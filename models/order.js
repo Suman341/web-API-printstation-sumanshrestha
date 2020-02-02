@@ -26,7 +26,6 @@ const orderSchema = mongoose.Schema({
     }
 });
 
-
 orderSchema.plugin(uniqueValidator);
 const Order = mongoose.model('Order', orderSchema);
 module.exports = Order;
